@@ -13,11 +13,11 @@
  * Multiple Use Cases are implemented in this single class:
  * 1. UC1 - Application Entry & Welcome Message
  * 2. UC2 - Hardcoded Palindrome Check
- * 3. UC3 - User Input Palindrome Check
+ * 3. UC3 - Reverse String Palindrome Check
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 2.0
+ * @version 3.0
  */
 
 public class PalindromeCheckerApp {
@@ -101,6 +101,25 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Helper method to reverse a string.
+     *
+     * This method demonstrates transformation-based validation
+     * by building a reversed version of the input string using a
+     * loop that iterates from the last character to the first.
+     *
+     * @param input The string to reverse
+     * @return A new string which is the reverse of the input
+     */
+    public static String reverseString(String input) {
+        String reversed = "";
+        // Iterate from the last character to the first
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed += input.charAt(i);
+        }
+        return reversed;
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -153,6 +172,29 @@ public class PalindromeCheckerApp {
         for (String testWord : testCases) {
             boolean isPalin = isPalindrome(testWord);
             System.out.println("Input text: " + testWord + " | Is it a Palindrome? " + isPalin);
+        }
+        
+        System.out.println();
+        
+        // ========== UC3: PALINDROME VIA STRING REVERSAL ==========
+        System.out.println("====================================================");
+        System.out.println("      UC3 - PALINDROME CHECK (REVERSE STRING)");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input3 = "racecar";                       // hardcoded for demo
+        String reversed = reverseString(input3);          // build reversed string
+        boolean check3 = input3.equals(reversed);        // compare content
+        
+        System.out.println("Input text: " + input3);
+        System.out.println("Reversed text: " + reversed);
+        System.out.println("Is it a Palindrome? " + check3);
+        
+        // additional examples
+        String[] more = {"level", "java", "madam"};
+        for (String word : more) {
+            String rev = reverseString(word);
+            System.out.println("Input text: " + word + " | reversed: " + rev + " | palindrome? " + word.equals(rev));
         }
         
         System.out.println();
