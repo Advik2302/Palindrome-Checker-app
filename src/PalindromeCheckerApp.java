@@ -15,10 +15,11 @@
  * 2. UC2 - Hardcoded Palindrome Check
  * 3. UC3 - Reverse String Palindrome Check
  * 4. UC4 - Character Array Palindrome Check
+ * 5. UC5 - Stack Based Palindrome Check
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 4.0
+ * @version 5.0
  */
 
 public class PalindromeCheckerApp {
@@ -145,6 +146,32 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Helper method using a stack to check palindrome.
+     *
+     * The stack pushes each character of the string and then
+     * pops them to obtain the reversed sequence. Comparison with
+     * the original string validates palindrome property using
+     * LIFO (Last In First Out) behavior.
+     *
+     * @param input The string to check
+     * @return true if palindrome, false otherwise
+     */
+    public static boolean isPalindromeUsingStack(String input) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+        // push characters
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+        // pop and compare
+        for (char c : input.toCharArray()) {
+            if (stack.pop() != c) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -166,7 +193,7 @@ public class PalindromeCheckerApp {
         
         // Display application details
         System.out.println("Application Name: Palindrome Checker App");
-        System.out.println("Version: 2.0");
+        System.out.println("Version: 5.0");
         System.out.println("Author: Developer");
         System.out.println("Batch: B1P17");
         System.out.println("Registration No: RA2411026010336");
@@ -239,6 +266,26 @@ public class PalindromeCheckerApp {
         String[] tests4 = {"level", "hello", "world"};
         for (String word : tests4) {
             boolean pal = isPalindromeCharArray(word);
+            System.out.println("Input text: " + word + " | palindrome? " + pal);
+        }
+        
+        System.out.println();
+        
+        // ========== UC5: STACK BASED PALINDROME CHECK ==========
+        System.out.println("====================================================");
+        System.out.println("      UC5 - STACK BASED PALINDROME VALIDATION");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input5 = "noon";                         // hardcoded example
+        boolean check5 = isPalindromeUsingStack(input5);
+        System.out.println("Input text: " + input5);
+        System.out.println("Is it a Palindrome? " + check5);
+        
+        // more stack tests
+        String[] tests5 = {"palin", "level", "racecar"};
+        for (String word : tests5) {
+            boolean pal = isPalindromeUsingStack(word);
             System.out.println("Input text: " + word + " | palindrome? " + pal);
         }
         
