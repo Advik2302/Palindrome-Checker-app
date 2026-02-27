@@ -18,10 +18,11 @@
  * 5. UC5 - Stack Based Palindrome Check
  * 6. UC6 - Queue + Stack Fairness Check
  * 7. UC7 - Deque Based Optimized Palindrome Check
+ * 8. UC8 - Linked List Based Palindrome Checker
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 7.0
+ * @version 8.0
  */
 
 public class PalindromeCheckerApp {
@@ -222,6 +223,54 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Helper method using a custom singly linked list.
+     *
+     * Builds a linked list of characters, uses fast/slow pointers to
+     * locate the middle, reverses the second half in-place, and then
+     * compares corresponding nodes from both halves.
+     * Demonstrates node traversal and in-place reversal.
+     *
+     * @param input The string to check
+     * @return true if palindrome, false otherwise
+     */
+    private static class Node {
+        char val;
+        Node next;
+        Node(char v) { val = v; next = null; }
+    }
+
+    public static boolean isPalindromeLinkedList(String input) {
+        Node head = null, tail = null;
+        for (char c : input.toCharArray()) {
+            Node n = new Node(c);
+            if (head == null) head = tail = n;
+            else { tail.next = n; tail = n; }
+        }
+        // find middle
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // reverse second half
+        Node prev = null, curr = slow;
+        while (curr != null) {
+            Node nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        // compare halves
+        Node p1 = head, p2 = prev;
+        while (p2 != null) {
+            if (p1.val != p2.val) return false;
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return true;
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -243,7 +292,7 @@ public class PalindromeCheckerApp {
         
         // Display application details
         System.out.println("Application Name: Palindrome Checker App");
-        System.out.println("Version: 7.0");
+        System.out.println("Version: 8.0");
         System.out.println("Author: Developer");
         System.out.println("Batch: B1P17");
         System.out.println("Registration No: RA2411026010336");
@@ -373,6 +422,24 @@ public class PalindromeCheckerApp {
         String[] tests7 = {"radar", "hello", "level"};
         for (String word : tests7) {
             System.out.println("Input text: " + word + " | palindrome? " + isPalindromeDeque(word));
+        }
+        
+        System.out.println();
+        
+        // ========== UC8: LINKED LIST PALINDROME VALIDATION ==========
+        System.out.println("====================================================");
+        System.out.println("      UC8 - LINKED LIST PALINDROME VALIDATION");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input8 = "level";
+        boolean check8 = isPalindromeLinkedList(input8);
+        System.out.println("Input text: " + input8);
+        System.out.println("Is it a Palindrome? " + check8);
+        
+        String[] tests8 = {"hello", "racecar", "abc"};
+        for (String word : tests8) {
+            System.out.println("Input text: " + word + " | palindrome? " + isPalindromeLinkedList(word));
         }
         
         System.out.println();
