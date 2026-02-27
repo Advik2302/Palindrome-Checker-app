@@ -19,10 +19,11 @@
  * 6. UC6 - Queue + Stack Fairness Check
  * 7. UC7 - Deque Based Optimized Palindrome Check
  * 8. UC8 - Linked List Based Palindrome Checker
+ * 9. UC9 - Recursive Palindrome Checker
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 8.0
+ * @version 9.0
  */
 
 public class PalindromeCheckerApp {
@@ -271,6 +272,23 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Recursive palindrome check helper.
+     *
+     * Compares characters at start and end indices, recursing inward.
+     * Base case: start >= end or mismatch.
+     *
+     * @param s the string
+     * @param start beginning index
+     * @param end ending index
+     * @return true if palindrome
+     */
+    public static boolean isPalindromeRecursive(String s, int start, int end) {
+        if (start >= end) return true;
+        if (s.charAt(start) != s.charAt(end)) return false;
+        return isPalindromeRecursive(s, start+1, end-1);
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -292,7 +310,7 @@ public class PalindromeCheckerApp {
         
         // Display application details
         System.out.println("Application Name: Palindrome Checker App");
-        System.out.println("Version: 8.0");
+        System.out.println("Version: 9.0");
         System.out.println("Author: Developer");
         System.out.println("Batch: B1P17");
         System.out.println("Registration No: RA2411026010336");
@@ -440,6 +458,24 @@ public class PalindromeCheckerApp {
         String[] tests8 = {"hello", "racecar", "abc"};
         for (String word : tests8) {
             System.out.println("Input text: " + word + " | palindrome? " + isPalindromeLinkedList(word));
+        }
+        
+        System.out.println();
+        
+        // ========== UC9: RECURSIVE PALINDROME CHECK ==========
+        System.out.println("====================================================");
+        System.out.println("      UC9 - RECURSIVE PALINDROME VALIDATION");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input9 = "madam";
+        boolean check9 = isPalindromeRecursive(input9, 0, input9.length()-1);
+        System.out.println("Input text: " + input9);
+        System.out.println("Is it a Palindrome? " + check9);
+        
+        String[] tests9 = {"level", "hello", "racecar"};
+        for (String word : tests9) {
+            System.out.println("Input text: " + word + " | palindrome? " + isPalindromeRecursive(word,0,word.length()-1));
         }
         
         System.out.println();
