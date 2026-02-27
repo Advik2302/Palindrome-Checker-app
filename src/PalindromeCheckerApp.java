@@ -14,10 +14,11 @@
  * 1. UC1 - Application Entry & Welcome Message
  * 2. UC2 - Hardcoded Palindrome Check
  * 3. UC3 - Reverse String Palindrome Check
+ * 4. UC4 - Character Array Palindrome Check
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 3.0
+ * @version 4.0
  */
 
 public class PalindromeCheckerApp {
@@ -120,6 +121,30 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Helper method using character array and two-pointer technique.
+     *
+     * Converts the string to a char[], then compares characters
+     * at start and end positions moving inward. This avoids creating
+     * extra string objects and demonstrates efficient primitive use.
+     *
+     * @param input The string to check
+     * @return true if the string is a palindrome, false otherwise
+     */
+    public static boolean isPalindromeCharArray(String input) {
+        char[] chars = input.toCharArray();          // convert to char array
+        int start = 0;                              // pointer at beginning
+        int end = chars.length - 1;                 // pointer at end
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                return false;                      // mismatch found
+            }
+            start++;                                // move inward
+            end--;
+        }
+        return true;                               // all matched
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -195,6 +220,26 @@ public class PalindromeCheckerApp {
         for (String word : more) {
             String rev = reverseString(word);
             System.out.println("Input text: " + word + " | reversed: " + rev + " | palindrome? " + word.equals(rev));
+        }
+        
+        System.out.println();
+        
+        // ========== UC4: CHAR ARRAY PALINDROME CHECK ==========
+        System.out.println("====================================================");
+        System.out.println("      UC4 - CHAR ARRAY PALINDROME VALIDATION");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input4 = "radar";                        // hardcoded example
+        boolean check4 = isPalindromeCharArray(input4);
+        System.out.println("Input text: " + input4);
+        System.out.println("Is it a Palindrome? " + check4);
+        
+        // more examples
+        String[] tests4 = {"level", "hello", "world"};
+        for (String word : tests4) {
+            boolean pal = isPalindromeCharArray(word);
+            System.out.println("Input text: " + word + " | palindrome? " + pal);
         }
         
         System.out.println();
