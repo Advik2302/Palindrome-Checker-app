@@ -16,10 +16,11 @@
  * 3. UC3 - Reverse String Palindrome Check
  * 4. UC4 - Character Array Palindrome Check
  * 5. UC5 - Stack Based Palindrome Check
+ * 6. UC6 - Queue + Stack Fairness Check
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 5.0
+ * @version 6.0
  */
 
 public class PalindromeCheckerApp {
@@ -172,6 +173,31 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Helper for UC6 – queue vs stack fairness check.
+     *
+     * Enqueues all chars into a FIFO queue and pushes them into a
+     * LIFO stack. Then dequeues and pops in parallel comparing values.
+     * If any mismatch occurs, string is not palindrome.
+     *
+     * @param input The string to evaluate
+     * @return true if queue and stack outputs match throughout
+     */
+    public static boolean queueStackFairness(String input) {
+        java.util.Queue<Character> queue = new java.util.LinkedList<>();
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+        for (char c : input.toCharArray()) {
+            queue.add(c);         // FIFO
+            stack.push(c);        // LIFO
+        }
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -193,7 +219,7 @@ public class PalindromeCheckerApp {
         
         // Display application details
         System.out.println("Application Name: Palindrome Checker App");
-        System.out.println("Version: 5.0");
+        System.out.println("Version: 6.0");
         System.out.println("Author: Developer");
         System.out.println("Batch: B1P17");
         System.out.println("Registration No: RA2411026010336");
@@ -287,6 +313,24 @@ public class PalindromeCheckerApp {
         for (String word : tests5) {
             boolean pal = isPalindromeUsingStack(word);
             System.out.println("Input text: " + word + " | palindrome? " + pal);
+        }
+        
+        System.out.println();
+        
+        // ========== UC6: QUEUE + STACK FAIRNESS CHECK ==========
+        System.out.println("====================================================");
+        System.out.println("      UC6 - QUEUE + STACK FAIRNESS VALIDATION");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input6 = "civic";
+        boolean fairness = queueStackFairness(input6);
+        System.out.println("Input text: " + input6);
+        System.out.println("Fairness check (queue vs stack): " + fairness);
+        
+        String[] tests6 = {"level", "abc", "madam"};
+        for (String word : tests6) {
+            System.out.println("Input text: " + word + " | fairness? " + queueStackFairness(word));
         }
         
         System.out.println();
