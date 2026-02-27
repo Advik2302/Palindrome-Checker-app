@@ -17,10 +17,11 @@
  * 4. UC4 - Character Array Palindrome Check
  * 5. UC5 - Stack Based Palindrome Check
  * 6. UC6 - Queue + Stack Fairness Check
+ * 7. UC7 - Deque Based Optimized Palindrome Check
  * (More use cases to be added...)
  *
  * @author Developer
- * @version 6.0
+ * @version 7.0
  */
 
 public class PalindromeCheckerApp {
@@ -198,6 +199,29 @@ public class PalindromeCheckerApp {
     }
 
     /**
+     * Helper using a deque for optimized palindrome check.
+     *
+     * Characters are added to a Deque and then compared by
+     * removing from both ends until fewer than two elements remain.
+     * This provides a front-to-back traversal without reversal.
+     *
+     * @param input string to evaluate
+     * @return true if palindrome, false otherwise
+     */
+    public static boolean isPalindromeDeque(String input) {
+        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+        for (char c : input.toCharArray()) {
+            deque.add(c);
+        }
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Application entry point.
      *
      * This is the first method executed by the JVM
@@ -219,7 +243,7 @@ public class PalindromeCheckerApp {
         
         // Display application details
         System.out.println("Application Name: Palindrome Checker App");
-        System.out.println("Version: 6.0");
+        System.out.println("Version: 7.0");
         System.out.println("Author: Developer");
         System.out.println("Batch: B1P17");
         System.out.println("Registration No: RA2411026010336");
@@ -331,6 +355,24 @@ public class PalindromeCheckerApp {
         String[] tests6 = {"level", "abc", "madam"};
         for (String word : tests6) {
             System.out.println("Input text: " + word + " | fairness? " + queueStackFairness(word));
+        }
+        
+        System.out.println();
+        
+        // ========== UC7: DEQUE BASED OPTIMIZED CHECK ==========
+        System.out.println("====================================================");
+        System.out.println("      UC7 - DEQUE BASED PALINDROME VALIDATION");
+        System.out.println("====================================================");
+        System.out.println();
+        
+        String input7 = "refer";
+        boolean check7 = isPalindromeDeque(input7);
+        System.out.println("Input text: " + input7);
+        System.out.println("Is it a Palindrome? " + check7);
+        
+        String[] tests7 = {"radar", "hello", "level"};
+        for (String word : tests7) {
+            System.out.println("Input text: " + word + " | palindrome? " + isPalindromeDeque(word));
         }
         
         System.out.println();
